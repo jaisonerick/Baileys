@@ -836,6 +836,15 @@ export const processSyncAction = (
 	} else if (action?.contactAction) {
 		const results = processContactAction(action.contactAction, id, logger)
 		emitSyncActionResults(ev, results)
+	} else if (action?.pnForLidChatAction) {
+		// pnForLidChatAction maps a LID chat (id) to a phone number (pnJid)
+		// This is the primary device's per-chat LID→phone mapping from its address book
+		if (id && action.pnForLidChatAction.pnJid) {
+			ev.emit('lid-mapping.update', {
+				lid: id,
+				pn: action.pnForLidChatAction.pnJid
+			})
+		}
 	} else if (action?.pushNameSetting) {
 		const name = action?.pushNameSetting?.name
 		if (name && me?.name !== name) {
