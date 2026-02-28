@@ -128,15 +128,6 @@ export const processHistoryMessage = (item: proto.IHistorySync, logger?: ILogger
 			break
 	}
 
-	const lidPnMappings: { lid: string, pn: string }[] = []
-	if (item.phoneNumberToLidMappings?.length) {
-		for (const m of item.phoneNumberToLidMappings) {
-			if (m.lidJid && m.pnJid) {
-				lidPnMappings.push({ lid: m.lidJid, pn: m.pnJid })
-			}
-		}
-	}
-
 	return {
 		chats,
 		contacts,
